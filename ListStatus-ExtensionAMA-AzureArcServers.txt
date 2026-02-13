@@ -1,0 +1,8 @@
+*** List the status of the Azure Arc AMA server extension. ***
+
+*** Change extension name, ResourceGroupName.***
+
+$list = Get-Content "C:\temp\servers_04-06-install.txt"
+Foreach ($servers in $list) { 
+	Get-AzConnectedMachineExtension -ResourceGroupName RG-SENTINEL -MachineName $servers | Where Name -Like AzureMonitorLinuxAgent | Select Id, StatusMessage | fl
+}
