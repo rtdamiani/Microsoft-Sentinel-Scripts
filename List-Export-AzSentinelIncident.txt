@@ -1,0 +1,15 @@
+
+*** Export incidents generated in Sentinel to CSV. *** 
+
+***  Set ResourceGroupName and WorkspaceName. *** 
+
+$AzureSentinelWorkSpaceInfo = @{
+ ResourceGroupName = "rg-lab"
+ WorkspaceName = "LAW"
+}
+
+Get-AzSentinelIncident @AzureSentinelWorkSpaceInfo | Select-Object -Property IncidentNumber,Title,CreatedTimeUTC | Sort-Object -Property CreatedTimeUTC -Descending
+
+Get-AzSentinelIncident @AzureSentinelWorkSpaceInfo | Select-Object -Property IncidentNumber,Title,CreatedTimeUTC | Sort-Object -Property CreatedTimeUTC -Descending | Export-Csv -Path "C:\temp\Incidentes.csv" -NoTypeInformation -Encoding UTF8
+
+Get-AzSentinelIncident @AzureSentinelWorkSpaceInfo | Select-Object -Property IncidentNumber,ProviderIncidentId,Number,Title,@{Name="AdditionalDataAlertProductName";Expression={$_.AdditionalDataAlertProductName -replace '^{}', ''}},ProviderName,CreatedTimeUTC
