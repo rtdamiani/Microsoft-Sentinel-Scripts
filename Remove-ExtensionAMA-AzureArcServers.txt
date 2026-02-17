@@ -1,9 +1,0 @@
-
-*** Remove AMA extension using a list of server names in Azure ARC. ***
-
-*** Change extension name, ResourceGroupName.***
-
-$list = Get-Content "C:\temp\servers_04-06.txt"
-Foreach ($servers in $list) { 
-	Remove-AzConnectedMachineExtension -ResourceGroupName RG-SENTINEL -Name AzureMonitorLinuxAgent -MachineName $servers -NoWait
-}
