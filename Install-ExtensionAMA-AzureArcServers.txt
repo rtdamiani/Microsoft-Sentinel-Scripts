@@ -1,8 +1,0 @@
-*** Add AMA extension using a list of server names in Azure ARC. ***
-
-*** Change extension name, ResourceGroupName, and Location.***
-
-$list = Get-Content "C:\temp\servers_04-06-install.txt"
-Foreach ($servers in $list) { 
-	New-AzConnectedMachineExtension -Name AzureMonitorLinuxAgent -ExtensionType AzureMonitorLinuxAgent -Publisher Microsoft.Azure.Monitor -ResourceGroupName RG-SENTINEL -MachineName $servers -Location brazilsouth -NoWait
-}
