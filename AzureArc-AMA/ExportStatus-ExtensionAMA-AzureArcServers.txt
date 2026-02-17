@@ -1,0 +1,10 @@
+
+*** Export CSV status of Azure Arc AMA server extensions. ***
+
+*** Change extension name, ResourceGroupName.***
+
+
+$list = Get-Content "C:\temp\server_notinstall.txt"
+Foreach ($servers in $list) { 
+	Get-AzConnectedMachineExtension -ResourceGroupName RG-SENTINEL -MachineName $servers | Where MachineExtensionType -Like AzureMonitorLinuxAgent | Select Id,Name,StatusLevel,ProvisioningState,StatusMessage | Export-Csv -Append -Path c:\temp\all111.csv
+}
