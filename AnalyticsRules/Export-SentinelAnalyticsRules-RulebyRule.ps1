@@ -3,6 +3,7 @@ Exports Sentinel Analytics Rules in Portal format (Analytics -> Export,
 Creates a JSON file for each rule.
 
 Uso:
+powershell -ExecutionPolicy Bypass -File .\Export-SentinelAnalyticsRules-RulebyRule.ps1
 .\Export-SentinelAnalyticsRules-PortalImport.ps1 -SubscriptionId "..." -ResourceGroupName "..." -WorkspaceName "..."
 #>
 
@@ -268,5 +269,6 @@ function Export-Rules {
     Write-Log "Arquivos salvos em: $OutputPath" -Level "SUCCESS"
     Write-Log "Indice: $indexPath" -Level "SUCCESS"
 }
+
 
 Export-Rules
