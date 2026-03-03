@@ -1,0 +1,1 @@
+Get-CustomDetection | Select-Object -Property id, displayName,isEnabled, createdBy, createdDateTime, lastModifiedDateTime | Export-Csv -Path "C:\temp\CustomDetections.csv" -NoTypeInformation -Encoding UTF8
