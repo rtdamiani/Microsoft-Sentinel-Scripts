@@ -1,0 +1,37 @@
+
+Install-Module powershell-yaml -Scope CurrentUser
+Install-Module Microsoft.Graph.Authentication -Scope CurrentUser
+Install-Module Microsoft.Graph -Scope CurrentUser
+Import-Module .\src\XDRConverter.psd1
+Copy-Item -Path .\src -Destination "$PROFILE\..\Modules\XDRConverter" -Recurse
+
+
+### CONNECT USING SERVICE PRINCIPAL ###
+Service principal permissions= CustomDetection.Read.All | CustomDetection.ReadWrite.All
+
+$clientId = "xxxxxxxxxxxxxxxx"
+$tenantId = "xxxxxxxxxxxxxxxx"
+$clientSecret = "xxxxxxxxxxxxxxxx"
+
+$secureSecret = ConvertTo-SecureString $clientSecret -AsPlainText -Force
+$credential = New-Object System.Management.Automation.PSCredential($clientId, $secureSecret)
+
+Write-Host "Conectando ao Microsoft Graph..." -ForegroundColor Cyan
+Connect-MgGraph -TenantId $tenantId -ClientSecretCredential $credential
+
+Write-Host "Sessão conectada:" -ForegroundColor Yellow
+Get-MgContext
+
+
+### CONNECT USING MgGraph and CustomDetections Permisions ###
+
+Connect-MgGraph -Scopes "CustomDetections.ReadWrite.All"
+Connect-MgGraph -Scopes "CustomDetections.ReadWrite.All" -NoWelcome -UseDeviceCode
+Connect-MgGraph -Scopes "CustomDetections.ReadWrite.All" -UseDeviceCode
+Connect-MgGraph -Scopes "CustomDetections.ReadWrite.All" -Browser
+
+
+### Troubleshooting ###
+To disable WAM run Set-MgGraphOption -DisableLoginByWAM $true and then use a custom ClientId
+Set-MgGraphOption -DisableLoginByWAM $true
+Set-MgGraphOption -DisableLoginByWAM $false
